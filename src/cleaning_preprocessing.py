@@ -3,9 +3,6 @@ import os
 
 import regex
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
 
 class LanguageData:
     """
@@ -79,9 +76,9 @@ class LanguageData:
     def summary(self) -> None:
         """Print a summary of the language corpus."""
         if not self.sentences:
-            logging.info(f"LanguageData({self.name}): not loaded. Call .load() first.")
+            print(f"LanguageData({self.name}): not loaded. Call .load() first.")
 
-        logging.info(f"Language: {self.name}")
-        logging.info(f"No. of sentences: {len(self.sentences)}")
-        logging.info(f"Avg. word length: {self.avg_word_len:.2f}")
-        logging.info(f"Avg. sentence length: {self.avg_sent_len:.2f}")
+        print(f"Language: {self.name}")
+        print(f"No. of sentences: {len(self.sentences)}")
+        print(f"Avg. word length: {self.avg_word_len:.2f}")
+        print(f"Avg. sentence length: {self.avg_sent_len:.2f}")

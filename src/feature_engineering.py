@@ -1,11 +1,7 @@
-import logging
 from collections import Counter
 from dataclasses import dataclass
 
 from src.cleaning_preprocessing import LanguageData
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -112,14 +108,14 @@ class LanguageFeatureExtractor:
 
     def summary(self, n: int = 20) -> None:
         """Print a summary of the language features with top-n n-grams."""
-        logging.info(f"Language: {self.lang_data.name}")
-        logging.info(f"Avg. word length: {self.lang_data.avg_word_len:.2f}")
-        logging.info(f"Avg. sentence length: {self.lang_data.avg_sent_len:.2f}\n")
+        print(f"Language: {self.lang_data.name}")
+        print(f"Avg. word length: {self.lang_data.avg_word_len:.2f}")
+        print(f"Avg. sentence length: {self.lang_data.avg_sent_len:.2f}\n")
 
-        logging.info(f"Top {n} character n-grams:")
+        print(f"Top {n} character n-grams:")
         for gram, count in self.top_ngrams(n=n, kind="char"):
-            logging.info(f"{gram}: {count}")
+            print(f"{gram}: {count}")
 
-        logging.info(f"\nTop {n} word n-grams:")
+        print(f"\nTop {n} word n-grams:")
         for gram, count in self.top_ngrams(n=n, kind="word"):
-            logging.info(f"{gram}: {count}")
+            print(f"{gram}: {count}")
