@@ -1,7 +1,7 @@
 from collections import Counter
 from dataclasses import dataclass
 from typing import Optional
-from cleaning_preprocessing import LanguageData
+from src.cleaning_preprocessing import LanguageData
 
 
 @dataclass
