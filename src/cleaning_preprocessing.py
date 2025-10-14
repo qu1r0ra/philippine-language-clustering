@@ -1,10 +1,16 @@
+import logging
 import os
+
 import regex
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 class LanguageData:
     """
-    Represents a single language corpus with preprocessed text and basic linguistic metrics.
+    Represents a single language corpus with preprocessed text
+    and basic linguistic metrics.
     """
 
     def __init__(self, name: str, path: str):
@@ -41,13 +47,16 @@ class LanguageData:
         sentences = []
         for file_name in os.listdir(self.path):
             if file_name.endswith(".txt"):
-                with open(os.path.join(self.path, file_name), "r") as file:
+                with open(os.path.join(self.path, file_name)) as file:
                     lines = [line.strip() for line in file if line.strip()]
                     sentences.extend([self._normalize(line) for line in lines])
         return sentences
 
     def _normalize(self, text: str) -> str:
-        """Normalizes a string by lowercasing it and removing punctuation, digits, and extra spaces."""
+        """
+        Normalizes a string by lowercasing it and removing punctuation, digits,
+        and extra spaces.
+        """
         text = text.lower()
         text = regex.sub(r"[^\p{L}\s]", "", text)  # remove non-Unicode characters
         text = regex.sub(r"\s+", " ", text).strip()  # remove extra spaces
@@ -70,9 +79,9 @@ class LanguageData:
     def summary(self) -> None:
         """Print a summary of the language corpus."""
         if not self.sentences:
-            print(f"LanguageData({self.name}): not loaded. Call .load() first.")
+            logging.info(f"LanguageData({self.name}): not loaded. Call .load() first.")
 
-        print(f"Language: {self.name}")
-        print(f"No. of sentences: {len(self.sentences)}")
-        print(f"Avg. word length: {self.avg_word_len:.2f}")
-        print(f"Avg. sentence length: {self.avg_sent_len:.2f}")
+        logging.info(f"Language: {self.name}")
+        logging.info(f"No. of sentences: {len(self.sentences)}")
+        logging.info(f"Avg. word length: {self.avg_word_len:.2f}")
+        logging.info(f"Avg. sentence length: {self.avg_sent_len:.2f}")

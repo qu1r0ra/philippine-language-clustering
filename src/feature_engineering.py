@@ -1,7 +1,11 @@
+import logging
 from collections import Counter
 from dataclasses import dataclass
-from typing import Optional
+
 from src.cleaning_preprocessing import LanguageData
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -21,8 +25,8 @@ class LanguageFeatureExtractor:
 
     def __init__(self, lang_data: LanguageData):
         self.lang_data = lang_data
-        self.char_ngrams: Optional[Counter] = None
-        self.word_ngrams: Optional[Counter] = None
+        self.char_ngrams: Counter | None = None
+        self.word_ngrams: Counter | None = None
 
     # -----------------------------
     # MAIN METHODS
@@ -68,12 +72,14 @@ class LanguageFeatureExtractor:
 
         if not isinstance(self.lang_data.avg_word_len, float):
             raise TypeError(
-                f"avg_word_len must be a float. Current type: {type(self.lang_data.avg_word_len)}"
+                f"avg_word_len must be a float. "
+                f"Current type: {type(self.lang_data.avg_word_len)}"
             )
 
         if not isinstance(self.lang_data.avg_sent_len, float):
             raise TypeError(
-                f"avg_sent_len must be a float. Current type: {type(self.lang_data.avg_sent_len)}"
+                f"avg_sent_len must be a float. "
+                f"Current type: {type(self.lang_data.avg_sent_len)}"
             )
 
         return LanguageFeatures(
@@ -106,14 +112,14 @@ class LanguageFeatureExtractor:
 
     def summary(self, n: int = 20) -> None:
         """Print a summary of the language features with top-n n-grams."""
-        print(f"Language: {self.lang_data.name}")
-        print(f"Avg. word length: {self.lang_data.avg_word_len:.2f}")
-        print(f"Avg. sentence length: {self.lang_data.avg_sent_len:.2f}\n")
+        logging.info(f"Language: {self.lang_data.name}")
+        logging.info(f"Avg. word length: {self.lang_data.avg_word_len:.2f}")
+        logging.info(f"Avg. sentence length: {self.lang_data.avg_sent_len:.2f}\n")
 
-        print(f"Top {n} character n-grams:")
+        logging.info(f"Top {n} character n-grams:")
         for gram, count in self.top_ngrams(n=n, kind="char"):
-            print(f"{gram}: {count}")
+            logging.info(f"{gram}: {count}")
 
-        print(f"\nTop {n} word n-grams:")
+        logging.info(f"\nTop {n} word n-grams:")
         for gram, count in self.top_ngrams(n=n, kind="word"):
-            print(f"{gram}: {count}")
+            logging.info(f"{gram}: {count}")
