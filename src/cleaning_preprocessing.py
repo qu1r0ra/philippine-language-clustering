@@ -31,6 +31,8 @@ class LanguageData:
         self.avg_word_len = self._compute_avg_word_length()
         self.avg_sent_len = self._compute_avg_sentence_length()
 
+        return self
+
     # -----------------------------
     # INTERNAL HELPER METHODS
     # -----------------------------
