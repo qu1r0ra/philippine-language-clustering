@@ -20,11 +20,16 @@ class LanguageData:
     # -----------------------------
 
     def load(self):
-        """Loads and normalizes all .txt files for this language corpus."""
+        """
+        Loads and normalizes all .txt files for this language corpus.
+        Automatically computes for basic statistics.
+        """
         if not os.path.exists(self.path):
             raise FileNotFoundError(f"Directory not found: {self.path}")
 
         self.sentences = self._load_corpus()
+        self.avg_word_len = self._compute_avg_word_length()
+        self.avg_sent_len = self._compute_avg_sentence_length()
 
     # -----------------------------
     # INTERNAL HELPER METHODS
@@ -37,6 +42,7 @@ class LanguageData:
                 with open(os.path.join(self.path, file_name), "r") as file:
                     lines = [line.strip() for line in file if line.strip()]
                     sentences.extend([self._normalize(line) for line in lines])
+        self._loaded = True
         return sentences
 
     def _normalize(self, text: str) -> str:
@@ -62,6 +68,9 @@ class LanguageData:
 
     def summary(self) -> str:
         """Returns a simple string summary of the language corpus."""
+        if not self._loaded:
+            return f"LanguageData({self.name}): not loaded. Call .load() first."
+
         return (
             f"Language: {self.name}\n"
             f"No. of sentences: {len(self.sentences)}\n"
