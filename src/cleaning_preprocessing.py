@@ -11,8 +11,8 @@ class LanguageData:
         self.name = name
         self.path = path
         self.sentences: list[str] = []
-        self.avg_word_len = None
-        self.avg_sent_len = None
+        self.avg_word_len: float | None = None
+        self.avg_sent_len: float | None = None
         self._loaded = False
 
     # -----------------------------
@@ -44,14 +44,13 @@ class LanguageData:
                 with open(os.path.join(self.path, file_name), "r") as file:
                     lines = [line.strip() for line in file if line.strip()]
                     sentences.extend([self._normalize(line) for line in lines])
-        self._loaded = True
         return sentences
 
     def _normalize(self, text: str) -> str:
         """Normalizes a string by lowercasing it and removing punctuation, digits, and extra spaces."""
         text = text.lower()
-        text = regex.sub(r"[^\p{L}\s]", "", text)
-        text = regex.sub(r"\s+", " ", text).strip()
+        text = regex.sub(r"[^\p{L}\s]", "", text)  # remove non-Unicode characters
+        text = regex.sub(r"\s+", " ", text).strip()  # remove extra spaces
         return text
 
     def _compute_avg_word_length(self) -> float:
@@ -68,14 +67,12 @@ class LanguageData:
     # EXTERNAL HELPER METHODS
     # -----------------------------
 
-    def summary(self) -> str:
-        """Returns a simple string summary of the language corpus."""
-        if not self._loaded:
-            return f"LanguageData({self.name}): not loaded. Call .load() first."
+    def summary(self) -> None:
+        """Print a summary of the language corpus."""
+        if not self.sentences:
+            print(f"LanguageData({self.name}): not loaded. Call .load() first.")
 
-        return (
-            f"Language: {self.name}\n"
-            f"No. of sentences: {len(self.sentences)}\n"
-            f"Avg. word length: {self.avg_word_len:.2f}\n"
-            f"Avg. sentence length: {self.avg_sent_len:.2f}"
-        )
+        print(f"Language: {self.name}")
+        print(f"No. of sentences: {len(self.sentences)}")
+        print(f"Avg. word length: {self.avg_word_len:.2f}")
+        print(f"Avg. sentence length: {self.avg_sent_len:.2f}")
