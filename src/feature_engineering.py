@@ -204,7 +204,8 @@ class FeatureSpaceBuilder:
         Retrieve the normalized vector for a given language as a pandas Series.
 
         Returns:
-            pd.Series: Indexed by n-gram (global vocabulary), containing normalized frequencies.
+            pd.Series: Indexed by n-gram (global vocabulary), containing normalized
+            frequencies.
         """
         vec_dict = self.char_vectors if kind == "char" else self.word_vectors
 
