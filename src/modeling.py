@@ -51,7 +51,7 @@ def reduce_dimensionality(
     reduced_df = pd.DataFrame(
         reduced_matrix,
         index=matrix.index,
-        columns=[f"{method}_{i+1}" for i in range(n_components)],
+        columns=[f"{method}_{i + 1}" for i in range(n_components)],
     )
 
     return reduced_df, reducer_model
