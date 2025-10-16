@@ -103,7 +103,7 @@ def model_pipeline(
         score (float | None): Silhouette score if applicable.
     """
     print(
-        f"\nReducing dimensionality using {reducer_method.upper()} "
+        f"Reducing dimensionality using {reducer_method.upper()} "
         f"({n_components} components)..."
     )
     reduced_df, reducer_model = reduce_dimensionality(
@@ -111,7 +111,7 @@ def model_pipeline(
     )
 
     print(
-        f"\nClustering languages using {clusterer_method.upper()} "
+        f"Clustering languages using {clusterer_method.upper()} "
         f"({n_clusters} clusters)..."
     )
     clusters, clustering_model = cluster_languages(
@@ -121,8 +121,8 @@ def model_pipeline(
     score = None
     if len(set(clusters)) > 1:
         score = float(silhouette_score(reduced_df, clusters))
-        print(f"\nSilhouette score: {score:.4f}")
+        print(f"Silhouette score: {score:.4f}")
     else:
-        print("\nSilhouette score not computed (only one cluster).")
+        print("Silhouette score not computed (only one cluster).")
 
     return reduced_df, clusters, reducer_model, clustering_model, score
