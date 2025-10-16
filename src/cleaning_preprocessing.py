@@ -15,7 +15,6 @@ class LanguageData:
         self.sentences: list[str] = []
         self.avg_word_len: float | None = None
         self.avg_sent_len: float | None = None
-        self._loaded = False
 
     # -----------------------------
     # MAIN METHODS
