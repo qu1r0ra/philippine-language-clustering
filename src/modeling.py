@@ -103,14 +103,16 @@ def model_pipeline(
         score (float | None): Silhouette score if applicable.
     """
     print(
-        f"\nReducing dimensionality using {reducer_method.upper()} ({n_components} components)..."
+        f"\nReducing dimensionality using {reducer_method.upper()} "
+        f"({n_components} components)..."
     )
     reduced_df, reducer_model = reduce_dimensionality(
         matrix, method=reducer_method, n_components=n_components
     )
 
     print(
-        f"\nClustering languages using {clusterer_method.upper()} ({n_clusters} clusters)..."
+        f"\nClustering languages using {clusterer_method.upper()} "
+        f"({n_clusters} clusters)..."
     )
     clusters, clustering_model = cluster_languages(
         reduced_df, method=clusterer_method, n_clusters=n_clusters
