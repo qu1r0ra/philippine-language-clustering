@@ -1,5 +1,8 @@
 # Miscellaneous additions
-data/
+data/parallel_corpora
+data/raw
+data/segmented
+data/*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
