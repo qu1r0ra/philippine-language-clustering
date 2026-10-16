@@ -23,7 +23,7 @@ This correction describes the repository implementation. It does not amend or ce
 
 ## Corpus provenance and limits
 
-The course used segmented Bible translations supplied as `segmented.zip` through the [course input folder](https://drive.google.com/drive/folders/1hKNLOayge7rvjx5LNMzHrMoGJY7gTeAT?usp=sharing). The notebooks load `segmented/by_sentence/`. The repository does not provide a verified manifest of translation editions, acquisition dates, source versions, or reuse permissions. Availability of that external folder is not guaranteed.
+The course used segmented Bible translations supplied as `segmented.zip` originally through a course input folder that is no longer reachable. The author's personal coursework archive ([MCO4 folder](https://drive.google.com/drive/folders/1nSnAOorIFFbFS4K9EsJdquYosqeyQtUU?usp=drive_link)) holds `data.zip`, which contains `segmented.zip`, `raw.zip`, `parallel_corpora.zip` and the `language_map/` tables. The notebooks load `segmented/by_sentence/`. The repository does not provide a verified manifest of translation editions, acquisition dates, source versions, or reuse permissions. The archive link is provided only so the coursework can be reproduced; availability is not guaranteed, and the archive is not a licensed distribution of the texts.
 
 Book coverage differs across translations, and the frequency features are not built from an aligned verse intersection. Differences can reflect coverage, translation style, and orthography as well as language relationships. One provincial/island point cannot represent a language's full distribution or contact history. There is no stability analysis, independent family validation, or basis for causal geographic claims.
 
