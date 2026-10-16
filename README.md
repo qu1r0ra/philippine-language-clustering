@@ -1,61 +1,44 @@
-# philippine-language-clustering <!-- omit from toc -->
+# Philippine-language clustering
 
-<!-- ![title](./readme/title.jpg) -->
+An exploratory project for NLP1000 (Introduction to Natural Language Processing). This repository is retained as a course showcase. Publication revival and a new research pipeline are not planned.
 
-<!-- Refer to https://shields.io/badges for usage -->
+## What the implementation does
 
-![Year, Term, Course](https://img.shields.io/badge/AY2526--T1-NLP1000-blue) ![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?logo=googlecolab&logoColor=fff) ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)
+The main notebook represents 16 corpus entries with character trigrams and word unigrams, reduces their feature matrices with SVD, and explores agglomerative clustering and cosine similarity. The entries include Spanish as a reference and Yami/Tao from Orchid Island, Taiwan; they should not all be described as 16 Philippine languages.
 
-An exploration and analysis of relationships among various Philippine languages. Created for NLP1000 (Introduction to Natural Language Processing).
+The notebook requests 50 SVD components, but `src/modeling.py` caps this at the smaller of the requested count, samples minus one, and features minus one. With 16 entries, this is at most 15 components. Silhouette scores help explore cluster counts on this same small sample; they do not independently validate language families or demonstrate stable linguistic classifications.
 
-## Table of Contents <!-- omit from toc -->
+![Character-trigram cosine similarity](data/results/char-trigram-similarity-matrix.png)
+![Exploratory character-trigram dendrogram](data/results/char-trigram-dendrogram.png)
 
-- [1. Introduction](#1-introduction)
-- [2. Running the Project](#2-running-the-project)
-  - [2.1. Prerequisites](#21-prerequisites)
-  - [2.2. Reproducing the Results](#22-reproducing-the-results)
+## Geographic comparison and corrections
 
-## 1. Introduction
+The geographic comparison excludes Spanish and uses one manually chosen location for each of 15 entries. It computes **Spearman rank correlation between geographic distance and orthographic cosine similarity** across 105 upper-triangle pairs. It does not implement a Mantel test. A negative coefficient describes lower similarity at greater distance in these representations; it is not a correlation between two distance matrices.
 
-This project investigates linguistic relationships among sixteen Philippine languages using a data-driven computational approach. Biblical text corpora were scraped, cleaned, and normalized, then transformed into quantitative representations through character trigrams and word unigrams. After dimensionality reduction via Singular Value Decomposition (SVD), cosine similarity matrices were generated and used to construct hierarchical clusters that map cross-language patterns. The resulting groupings highlight well-known linguistic relationships, including the strong pairing of Ivatan and Yami, the clustering of Central/Meso-Philippine languages, and the distinct Spanish–Chavacano cluster reflecting historical contact. To examine the role of geography, provincial coordinates were used to compute pairwise distances, which were compared with linguistic distances through a Mantel test. Results reveal a moderate negative correlation, indicating that geographically closer languages tend to be more orthographically similar, though historical interactions also significantly shape similarity patterns. Overall, the findings demonstrate that computational methods can approximate established linguistic classifications while also exposing limitations of orthography-based models.
+Pairs share languages and are dependent. Ordinary pair-level Spearman p-values do not establish inferential significance here. The notebook now reports the descriptive coefficient without that p-value; no replacement significance test or new experiment has been added. Earlier Mantel and significance claims are withdrawn for this showcase.
 
-![char-trigram-sim-matrix](./data/results/char-trigram-similarity-matrix.png)
-![char-trigram-dendrogram](./data/results/char-trigram-dendrogram.png)
-![char-trigram-mantel](./data/results/mantel-char.png)
+The historical scatterplot is retained under a descriptive filename:
 
-## 2. Running the Project
+![Historical geographic-distance versus character-similarity plot](data/results/geographic-distance-vs-char-similarity.png)
 
-### 2.1. Prerequisites
+This correction describes the repository implementation. It does not amend or certify an external course-paper copy that was not available for this review.
 
-To reproduce our results, you will need the following installed:
+## Corpus provenance and limits
 
-1. **Git:** Used to clone this repository.
+The course used segmented Bible translations supplied as `segmented.zip` through the [course input folder](https://drive.google.com/drive/folders/1hKNLOayge7rvjx5LNMzHrMoGJY7gTeAT?usp=sharing). The notebooks load `segmented/by_sentence/`. The repository does not provide a verified manifest of translation editions, acquisition dates, source versions, or reuse permissions. Availability of that external folder is not guaranteed.
 
-2. **Python:** We require Python 3.13.x for this project. See <https://www.python.org/downloads/> for the latest Python 3.13 release and install it.
+Book coverage differs across translations, and the frequency features are not built from an aligned verse intersection. Differences can reflect coverage, translation style, and orthography as well as language relationships. One provincial/island point cannot represent a language's full distribution or contact history. There is no stability analysis, independent family validation, or basis for causal geographic claims.
 
-3. **uv:** The dependency manager we used. Install it by following the instructions at <https://docs.astral.sh/uv/getting-started/installation/>.
+The original translation texts are not redistributed here. Public availability does not establish permission to redistribute them; resolve edition-specific terms before obtaining or sharing inputs. No repository-wide data license or research novelty claim is asserted.
 
-### 2.2. Reproducing the Results
+## Running the coursework
 
-1. Clone the repository:
+Use Python 3.13 and the dependencies in `pyproject.toml`:
 
-   ```bash
-   git clone https://github.com/qu1r0ra/philippine-machine-translation
-   ```
+```bash
+git clone https://github.com/qu1r0ra/philippine-language-clustering.git
+cd philippine-language-clustering
+uv sync
+```
 
-2. Navigate to the project root and install all required dependencies:
-
-   ```bash
-   uv sync
-   ```
-
-3. Run through the ff. notebooks in `notebooks/` in the order listed below:
-
-   1. `philippine_language_clustering.ipynb`
-   2. `language_map_clustering.ipynb`
-
-   Notes
-
-   - When running a notebook, select `.venv` in root as the kernel.
-   - Further instructions can be found in each notebook.
-   - You do not need to run the notebooks that are not listed above as they are either experimental or deprecated.
+Obtain the permitted course inputs separately, then open `notebooks/philippine_language_clustering.ipynb` with the root `.venv` kernel. Its setup cell is for Colab; skip that cell locally. `notebooks/language_map_clustering.ipynb` is a small exploratory companion, not a separate validation study. Committed figures are historical coursework outputs; a fresh end-to-end reproduction requires the external corpus and may depend on package versions. This correction did not rerun the corpus analysis.
