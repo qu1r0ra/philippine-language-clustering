@@ -17,9 +17,7 @@ The geographic comparison excludes Spanish and uses one manually chosen location
 
 Pairs share languages and are dependent. Ordinary pair-level Spearman p-values do not establish inferential significance here. The notebook now reports the descriptive coefficient without that p-value; no replacement significance test or new experiment has been added. Earlier Mantel and significance claims are withdrawn for this showcase.
 
-The historical scatterplot is retained under a descriptive filename:
-
-![Historical geographic-distance versus character-similarity plot](data/results/geographic-distance-vs-char-similarity.png)
+The historical geographic scatterplot is withdrawn: its embedded Mantel, Pearson, p-value, and distance labels do not describe this implementation. No replacement result or figure is asserted.
 
 This correction describes the repository implementation. It does not amend or certify an external course-paper copy that was not available for this review.
 
